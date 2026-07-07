@@ -36,11 +36,17 @@ jobs:
           flutter-version: '3.41.7'
           channel: 'stable'
 
+      # Flet'in takılmasını önlemek için tüm Android lisanslarını önceden kabul ediyoruz
+      - name: Accept Android Licenses
+        run: |
+          yes | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          yes | sdkmanager --licenses || true
+
       - name: Build Flet APK
-        run: yes | flet build apk -vv # Soru sorduğunda otomatik olarak 'y' yanıtını verir
+        run: flet build apk --verbose
         
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release
-          path: build/apk/app-release.apk
+          path: build/**/*.apk
