@@ -33,12 +33,12 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.41.7' # Flet'in istediği tam sürüm olarak güncellendi
+          flutter-version: '3.41.7'
           channel: 'stable'
 
       - name: Build Flet APK
-        run: flet build apk -vv --no-interactive # Etkileşimi kapatarak soru sormasını engelledik
-
+        run: yes | flet build apk -vv # Soru sorduğunda otomatik olarak 'y' yanıtını verir
+        
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
