@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -32,15 +33,14 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'
+          flutter-version: '3.41.7' # Flet'in istediği tam sürüm olarak güncellendi
           channel: 'stable'
 
       - name: Build Flet APK
-        run: flet build apk -vv
+        run: flet build apk -vv --no-interactive # Etkileşimi kapatarak soru sormasını engelledik
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release
           path: build/apk/app-release.apk
-
